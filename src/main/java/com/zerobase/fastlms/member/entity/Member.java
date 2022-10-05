@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder  //빌더패턴
 @Data
 @Entity
-public class Member {
+public class Member implements MemberCode {
 
     @Id
     private String userId;
@@ -32,4 +32,8 @@ public class Member {
     private LocalDateTime resetPasswordLimitDt;
 
     private boolean adminYn;
+
+
+    // 이용가능 상태, 정지상태
+    private String userStatus;
 }
