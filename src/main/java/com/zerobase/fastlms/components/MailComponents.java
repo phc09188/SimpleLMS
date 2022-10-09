@@ -12,21 +12,23 @@ import javax.mail.internet.MimeMessage;
 @RequiredArgsConstructor
 @Component
 public class MailComponents {
+    
     private final JavaMailSender javaMailSender;
-
-    public void sendMailTest(){
+    
+    public void sendMailTest() {
+    
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo("phc09188@gmail.com");
-        msg.setSubject("안녕하세요 제로베이스 입니다.");
-        msg.setText("안녕하세요 제로베이스 입니다. 반갑습니다.");
-
-
+        msg.setTo("satcop@naver.com");
+        msg.setSubject("안녕하세요. 제로베이스 입니다.");
+        msg.setText(" 안녕하세요. 제로베이스 입니다. 방갑습니다. ");
+        
         javaMailSender.send(msg);
     }
-    public boolean sendMail(String mail, String subject, String text){
-
+    
+    public boolean sendMail(String mail, String subject, String text) {
+        
         boolean result = false;
-
+        
         MimeMessagePreparator msg = new MimeMessagePreparator() {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -36,12 +38,17 @@ public class MailComponents {
                 mimeMessageHelper.setText(text, true);
             }
         };
-        try{
+        
+        try {
             javaMailSender.send(msg);
             result = true;
-        }catch(Exception e){
+            
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        
         return result;
     }
+    
+
 }

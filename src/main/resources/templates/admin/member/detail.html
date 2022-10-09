@@ -2,24 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>관리자 화면</title>
+    <title>관리자 화면 </title>
     <style>
-        .detail table{
+        .detail table {
             width: 100%;
             border-collapse: collapse;
         }
-        .detail table th, .detail table td{
+        .detail table th, .detail table td {
             border:solid 1px #000;
         }
+
     </style>
 </head>
 <body>
+    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+    <h1>관리자 회원 관리 - 회원 상세 정보</h1>
 
-    <h1> 관리자 회원 관리 - 상세 정보</h1>
-    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu">
 
-    </div>
-    <div class="detail">
+    <div class="detail" >
+
         <table>
             <tbody>
                 <tr>
@@ -32,21 +33,18 @@
                     <th>이름</th>
                     <td>
                         <p th:text="${member.userName}"></p>
-
                     </td>
                 </tr>
                 <tr>
                     <th>연락처</th>
                     <td>
                         <p th:text="${member.phone}"></p>
-
                     </td>
                 </tr>
                 <tr>
                     <th>가입일</th>
                     <td>
                         <p th:text="${member.regDt}"></p>
-
                     </td>
                 </tr>
                 <tr>
@@ -56,58 +54,56 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>비밀번호 초기화</th>
-                    <td>
-                        <p th:text="${member.adminYn}"></p>
-
-                    </td>
-                </tr>
-                <tr>
                     <th>관리자 여부</th>
                     <td>
-                        <p th:text="${member.userId}"></p>
-
+                        <p th:text="${member.adminYn}"></p>
                     </td>
                 </tr>
                 <tr>
                     <th>회원 상태</th>
                     <td>
                         <p>
-                            현재상태 <span th:text="${member.userStatus}"></span>
+                            현재상태: <span th:text="${member.userStatus}"></span>
                         </p>
                         <div>
                             <form method="post" action="/admin/member/status.do">
-                                <input th:value="${member.userId}" type="hidden" name="userId">
+                                <input th:value="${member.userId}" type="hidden" name="userId"/>
                                 <select name="userStatus">
                                     <option value="REQ">가입승인중</option>
                                     <option value="ING">정상이용중</option>
-                                    <option value="STOP">정지 중</option>
+                                    <option value="STOP">정지중</option>
                                 </select>
                                 <button type="submit">상태 변경</button>
                             </form>
                         </div>
                     </td>
                 </tr>
+
                 <tr>
                     <th>비밀번호 초기화</th>
                     <td>
                         <div>
                             <form method="post" action="/admin/member/password.do">
-                                <input th:value="${member.getUserId()}" type="hidden" name="userId">
-                                <input type="text" name="password" >
-                                <button type="submit">초기화</button>
+                                <input th:value="${member.userId}" type="hidden" name="userId"/>
+                                <input type="text" name="password"/>
+                                <button type="submit">비밀번호 초기화</button>
                             </form>
                         </div>
                     </td>
                 </tr>
+
+
             </tbody>
         </table>
 
         <div>
-            <a href="list.do">목록</a>
+            <a href="list.do"> 목록 </a>
+
         </div>
 
+
     </div>
+
 
 </body>
 </html>
