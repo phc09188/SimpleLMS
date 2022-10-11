@@ -39,5 +39,8 @@ public class Member implements MemberCode {
     private String zipcode;
     private String addr;
     private String addrDetail;
+
+    //log를 위해 추가
+    private LocalDateTime lastLoginDt;
     
 }

@@ -1,5 +1,7 @@
 package com.zerobase.fastlms.configuration;
 
+import com.zerobase.fastlms.history.Service.LogHistoryService;
+import com.zerobase.fastlms.history.Service.LogHistoryServiceImpl;
 import com.zerobase.fastlms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final MemberService memberService;
+    private final LogHistoryService logHistoryService;
 
     @Bean
     PasswordEncoder getPasswordEncoder() {
@@ -33,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/favicon.ico", "/files/**");
+        web.ignoring().antMatchers("/favicon.ico","/files/**", "/Users/chandle/SimpleLMS/files/**");
         
         super.configure(web);
     }
@@ -60,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/member/login")
                 .failureHandler(getFailureHandler())
+                .successHandler(new LogAuthenticationSuccess(logHistoryService))
                 .permitAll();
 
         http.logout()

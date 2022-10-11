@@ -131,7 +131,7 @@ public class AdminCourseController extends BaseController {
         if (file != null) {
             String originalFilename = file.getOriginalFilename();
             
-            String baseLocalPath = "/Users/kyutaepark/Documents/sources/zerobase/fastlms/files";
+            String baseLocalPath = "/Users/chandle/SimpleLMS/src/main/resources/static/files";
             String baseUrlPath = "/files";
             
             String[] arrFilename = getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);

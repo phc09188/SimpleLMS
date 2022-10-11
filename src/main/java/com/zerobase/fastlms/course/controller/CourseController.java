@@ -52,6 +52,7 @@ public class CourseController extends BaseController {
             , CourseParam parameter) {
         System.out.println("????");
         CourseDto detail = courseService.frontDetail(parameter.getId());
+        detail.setFilename(detail.getFilename());
         model.addAttribute("detail", detail);
         
         return "course/detail";

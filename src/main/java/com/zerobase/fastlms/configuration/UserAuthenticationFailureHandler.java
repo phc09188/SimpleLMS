@@ -14,16 +14,11 @@ public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        
-        
-        
         String msg = "로그인에 실패하였습니다.";
         
         if (exception instanceof InternalAuthenticationServiceException) {
             msg = exception.getMessage();
         }
-        
-
         setUseForward(true);
         setDefaultFailureUrl("/member/login?error=true");
         request.setAttribute("errorMessage", msg);
