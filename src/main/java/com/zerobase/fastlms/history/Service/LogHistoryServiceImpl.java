@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -36,5 +38,14 @@ public class LogHistoryServiceImpl implements  LogHistoryService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<HistoryDto> detail(String userId) {
+        Optional<List<History>> list = historyRepository.findByUserId(userId);
+        if(list.isPresent()){
+            return HistoryDto.of(list.get());
+        }
+        return null;
     }
 }

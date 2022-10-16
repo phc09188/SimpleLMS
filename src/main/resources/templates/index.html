@@ -3,14 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>메인 페이지</title>
+
+    <style type="text/css">
+        *{
+            box-sizing: border-box;
+        }
+        .carousel-wrapper {
+            width: 500px;
+            height: 300px;
+            overflow: hidden;
+        }
+        .carousel-wrapper > .carousel{
+            display: flex;
+            transform: translate3d(0, 0, 0);
+            transition: transform 0.2s;
+        }
+        .carousel-wrapper > .carousel > img{
+            width: 500px;
+            height: 300px;
+        }
+        .carousel > #bannerCat > img{
+            width: 500px;
+            height: 300px;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script language="JavaScript">
+        $(function(){
+            const prevButton = document.querySelector('.prev');
+            const nextButton = document.querySelector('.next');
+            const carousel = document.querySelector('.carousel');
+            let index = 0;
+            prevButton.addEventListener('click', function (){
+                if(index == 0)return;
+                index -=1;
+                carousel.style.transform = `translate3d(-${500 * index}px, 0,0)`;
+            });
+            nextButton.addEventListener('click', function (){
+                if(index ==3) return;
+                index +=1;
+                carousel.style.transform = `translate3d(-${500 * index}px, 0,0)`;
+            });
+        });
+    </script>
+
 </head>
 <body>
     <h1>메인 페이지 </h1>
     <div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
 
-    <div>
-        <img src="/files/1234abc.png"/>
+    <div class="home-slider">
+        <div class="carousel-wrapper">
+            <div class="carousel">
+                <p id="bannerCat" th:each="x : ${banners}">
+                    <a th:href="${x.linkUrl}" th:if="${x.targetNewPage == 'OLD'}"><img th:src="${x.bannerUrl}" alt="자바 강의 바로가기" th:if="${x.sortValue==1}" width="500px" height="300px" /></a>
+                    <a th:href="${x.linkUrl}" th:if="${x.targetNewPage == 'NEW'}"><img target="_blank" th:src="${x.bannerUrl}" alt="자바 강의 바로가기" width="500px" height="300px" th:if="${x.sortValue==1}" /></a>
+                    <a th:href="${x.linkUrl}" th:if="${x.targetNewPage == 'OLD'}"><img th:src="${x.bannerUrl}" alt="스프링 강의 바로가기" th:if="${x.sortValue==2}" width="500px" height="300px" /></a>
+                    <a th:href="${x.linkUrl}" th:if="${x.targetNewPage == 'NEW'}" ><img target="_blank" th:src="${x.bannerUrl}" alt="자바 강의 바로가기" width="500px" height="300px" th:if="${x.sortValue==1}" /></a>
+                    <a th:href="${x.linkUrl}" th:if="${x.targetNewPage == 'OLD'}"><img th:src="${x.bannerUrl}" alt="html 강의 바로가기" width="500px" height="300px" th:if="${x.sortValue==3}" /></a>
+                    <a th:href="${x.linkUrl}" th:if="${x.targetNewPage == 'NEW'}"><img target="_blank" th:src="${x.bannerUrl}" alt="자바 강의 바로가기" width="500px" height="300px" th:if="${x.sortValue==1}" /></a>
+                    <a th:href="${x.linkUrl}" th:if="${x.targetNewPage == 'OLD'}"><img th:src="${x.bannerUrl}" alt="React 강의 바로가기" width="500px" height="300px" th:if="${x.sortValue==4}" /></a>
+                    <a th:href="${x.linkUrl}" th:if="${x.targetNewPage == 'NEW'}"><img target="_blank" th:src="${x.bannerUrl}" alt="자바 강의 바로가기" width="500px" height="300px" th:if="${x.sortValue==1}" /></a>
+                </p>
+            </div>
+        </div>
     </div>
-
+    <button class="prev" type="button">prev</button>
+    <button class="next" type="button">next</button>
 </body>
 </html>

@@ -1,2 +1,6 @@
 gamil key:
-gwgcpjpzxkhnrigm
+avvwwjuzipsmiqmx
+
+DB
+mysql 3306Port minicampus
+user : minicampus_user  password : 12345678

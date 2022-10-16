@@ -11,7 +11,6 @@
         .list table th, .list table td {
             border:solid 1px #000;
         }
-
         p.nothing {
             text-align: center;
             padding: 100px;
@@ -48,7 +47,6 @@
             color: red;
         }
     </style>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
@@ -94,67 +92,71 @@
 
         });
     </script>
+
 </head>
 <body>
     <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
-    <h1>강좌 관리</h1>
+    <h1>배너 관리</h1>
+
+    <div class="list">
+
+        <div class="buttons">
+            <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
+            <a href="/admin/banner/add.do">배너 등록</a>
+            <butoon id="deleteButton" type="button"> 선택 삭제</butoon>
+       </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        <input id="selectAll" type="checkbox"/>
+                    </th>
+                    <th>NO</th>
+                    <th>
+                        배너명
+                    </th>
+                    <th>
+                        이미지
+                    </th>
+                    <th>
+                        등록일
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="dataList">
+                <tr th:each="x : ${list}">
+                    <td>
+                        <input type="checkbox" th:value="${x.id}"/>
+                    </td>
+                    <td th:text="${x.seq}">1</td>
+                    <td>
+                        <a th:text="${x.bannerName}"
+                           th:href="'edit.do?id=' + ${x.id}"></a>
+<!--                            <a th:href="'edit.do?id=' + ${x.id}" th:text="${x.subject}">강좌명</a>-->
+<!--                            satcop@naver.com</a>-->
+                    </td>
+                    <td>
+                        <img width="500px" height="300px" th:src="${x.bannerUrl}">
+                    </td>
+                    <td th:text="${x.addDt}">2021.01.01</td>
+                </tr>
+                <tr th:if="${#lists.size(list) <1}">
+                    <td colspan="5">
+                        <p class="nothing"> 내용이 없습니다.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pager" th:utext="${pager}">
+        </div>
 
 
-<div class="list">
-
-    <div class="buttons">
-        <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
-
-        <a href="/admin/course/add.do"> 강좌 등록 </a>
-        <button id="deleteButton" type="button"> 선택 삭제 </button>
     </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>
-                <input id="selectAll" type="checkbox" />
-            </th>
-            <th> NO </th>
-            <th>
-                강좌명
-            </th>
-
-            <th>
-                등록일
-            </th>
-        </tr>
-        </thead>
-        <tbody id="dataLIst">
-        <tr th:each="x : ${list}">
-            <td>
-                <input type="checkbox" th:value="${x.id}" />
-            </td>
-            <td th:text="${x.seq}">1</td>
-            <td>
-                <p>
-                    <a th:href="'edit.do?id=' + ${x.id}" th:text="${x.subject}">강좌명</a>
-                </p>
-            </td>
-            <td>
-                <p th:text="${x.regDt}">2021.01.01</p>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-
-    <div class="pager" th:utext="${pager}">
-    </div>
-
-
-
-</div>
-
-<form name="deleteForm" method="post" action="/admin/course/delete.do">
-    <input type="hidden" name="idList"/>
-</form>
-
-
+    <form name="deleteForm" method="post" action="/admin/banner/delete.do">
+        <input type="hidden" name="idList"/>
+    </form>
 </body>
 </html>

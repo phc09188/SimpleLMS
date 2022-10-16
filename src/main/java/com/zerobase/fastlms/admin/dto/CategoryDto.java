@@ -20,8 +20,6 @@ public class CategoryDto {
     int sortValue;
     boolean usingYn;
     
-    
-    //ADD COLUMNS
     int courseCount;
     
     
