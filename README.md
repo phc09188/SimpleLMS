@@ -1,7 +1,7 @@
 # 개요
 간단한 LMS 시스템 프로젝트
 
-USE : Spring, Jpa, Mysql, Thyeleaf, mybatis
+USE : Spring, Jpa, Mysql, Thyeleaf, mybatis, Google SMTP
 
 ## 회원
 ### 공통
